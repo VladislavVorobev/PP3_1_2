@@ -1,7 +1,10 @@
 package web.PP3_1_2.model;
 
 
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -13,15 +16,19 @@ public class User {
     @Column(name = "id")
     private long id;
 
+    @NotBlank(message = "Name is required")
+    @Size(max = 50, message = "Name must be less than or equal to 50 characters")
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Surname is required")
+    @Size(max = 50, message = "Surname must be less than or equal to 50 characters")
     @Column(name = "surname")
     private String surname;
 
+    @NotBlank(message = "Email is required")
     @Column(name = "email")
     private String email;
-
     public User() {
     }
 

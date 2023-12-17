@@ -10,7 +10,6 @@ import web.PP3_1_2.service.UserService;
 
 
 @Controller
-@RequestMapping()
 public class UserController {
 
     private final UserService userService;
@@ -20,7 +19,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/")
+    public String hello(){
+        return "hello";
+    }
+
+    @GetMapping("/show")
     public String showUsers(Model model) {
         model.addAttribute("users", userService.getUserTable());
         return "index";
@@ -34,7 +38,7 @@ public class UserController {
     @PostMapping("/new")
     public String create(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/";
+        return "redirect:/show";
     }
 
     @GetMapping("/update")
@@ -46,13 +50,13 @@ public class UserController {
     @PostMapping("/edit")
     public String update(@ModelAttribute("user") @Valid User user) {
         userService.updateUser(user);
-        return "redirect:/";
+        return "redirect:/show";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") long id) {
         userService.deleteUser(id);
-        return "redirect:/";
+        return "redirect:/show";
     }
 
 }
