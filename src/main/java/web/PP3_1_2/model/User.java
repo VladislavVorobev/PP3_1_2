@@ -15,6 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+    private int num;
 
     @NotBlank(message = "Name is required")
     @Size(max = 50, message = "Name must be less than or equal to 50 characters")
