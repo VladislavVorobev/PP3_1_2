@@ -3,8 +3,7 @@ package web.PP3_1_2.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
@@ -14,20 +13,25 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
-    private int num;
+    private long userID;
 
     @NotBlank(message = "Name is required")
     @Size(max = 50, message = "Name must be less than or equal to 50 characters")
+    @Pattern(regexp = "[a-zA-Z]+", message = "Name must contain only letters")
+    @NotNull
     @Column(name = "name")
     private String name;
 
     @NotBlank(message = "Surname is required")
     @Size(max = 50, message = "Surname must be less than or equal to 50 characters")
+    @Pattern(regexp = "[a-zA-Z]+", message = "Surname must contain only letters")
+    @NotNull
     @Column(name = "surname")
     private String surname;
 
     @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @NotNull
     @Column(name = "email")
     private String email;
     public User() {
@@ -40,11 +44,11 @@ public class User {
     }
 
     public long getId() {
-        return id;
+        return userID;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.userID = id;
     }
 
     public String getName() {
@@ -76,18 +80,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email);
+        return userID == user.userID && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, email);
+        return Objects.hash(userID, name, surname, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + userID +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
